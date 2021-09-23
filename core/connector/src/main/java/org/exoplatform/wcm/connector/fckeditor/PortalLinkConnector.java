@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;

@@ -23,11 +23,12 @@ import javax.inject.Inject;
 import javax.jcr.RepositoryException;
 
 import org.cometd.annotation.Param;
-import org.cometd.annotation.ServerAnnotationProcessor;
 import org.cometd.annotation.Service;
 import org.cometd.annotation.Session;
 import org.cometd.annotation.Subscription;
+import org.cometd.annotation.server.ServerAnnotationProcessor;
 import org.cometd.bayeux.Message;
+import org.cometd.bayeux.Promise;
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.BayeuxServer.ChannelListener;
 import org.cometd.bayeux.server.ConfigurableServerChannel;
@@ -40,7 +41,6 @@ import org.eclipse.jetty.util.component.LifeCycle;
 import org.mortbay.cometd.continuation.EXoContinuationBayeux;
 import org.picocontainer.Startable;
 
-import com.google.api.services.plus.model.Activity.Provider;
 
 import org.exoplatform.commons.utils.PropertyManager;
 import org.exoplatform.container.ExoContainer;
@@ -64,7 +64,7 @@ import org.exoplatform.ws.frameworks.json.impl.JsonGeneratorImpl;
 public class CometdDocumentsService implements Startable {
 
   /**
-   * Command thread factory adapted from {@link Executors#DefaultThreadFactory}.
+   * Command thread factory adapted from .
    */
   static class CommandThreadFactory implements ThreadFactory {
 
@@ -384,8 +384,6 @@ public class CometdDocumentsService implements Startable {
    * component's <code>addChannelSubscriptionListener<code> method. When
    * the channelSubscription event occurs, that object's appropriate
    * method is invoked.
-   *
-   * @see ChannelSubscriptionEvent
    */
   class ChannelSubscriptionListener implements SubscriptionListener {
 
@@ -471,7 +469,6 @@ public class CometdDocumentsService implements Startable {
   /**
    * The listener interface for receiving client channel events.
    *
-   * @see ClientChannelEvent
    */
   class ClientChannelListener implements ChannelListener {
 
@@ -611,7 +608,7 @@ public class CometdDocumentsService implements Startable {
     // start-dependent logic worked before us
     final AtomicReference<ServerAnnotationProcessor> processor = new AtomicReference<>();
     // need initiate process after Bayeux server starts
-    exoBayeux.addLifeCycleListener(new LifeCycle.Listener() {
+    exoBayeux.addEventListener(new LifeCycle.Listener() {
       @Override
       public void lifeCycleStarted(LifeCycle event) {
         ServerAnnotationProcessor p = new ServerAnnotationProcessor(exoBayeux);
@@ -647,7 +644,7 @@ public class CometdDocumentsService implements Startable {
       // This listener not required for work, just for info during development
       exoBayeux.addListener(new BayeuxServer.SessionListener() {
         @Override
-        public void sessionRemoved(ServerSession session, boolean timedout) {
+        public void sessionRemoved(ServerSession session, ServerMessage message, boolean timedout) {
           if (LOG.isDebugEnabled()) {
             LOG.debug("sessionRemoved: " + session.getId() + " timedout:" + timedout + " channels: "
                 + channelsAsString(session.getSubscriptions()));
@@ -827,7 +824,7 @@ public class CometdDocumentsService implements Startable {
         data.append("\"provider\": \"");
         data.append(provider);
         data.append("\"}");
-        channel.publish(localSession, data.toString());
+        channel.publish(localSession, data.toString(), Promise.noop());
       }
     }
 
@@ -861,7 +858,7 @@ public class CometdDocumentsService implements Startable {
         data.append("\"allProviders\":");
         data.append(allProviders);
         data.append("}");
-        channel.publish(localSession, data.toString());
+        channel.publish(localSession, data.toString(), Promise.noop());
 
       }
     }

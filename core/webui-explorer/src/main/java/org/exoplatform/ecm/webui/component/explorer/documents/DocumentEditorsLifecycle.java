@@ -20,7 +20,7 @@ import java.util.List;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletRequest;
 
 import org.exoplatform.ecm.webui.component.explorer.UIJCRExplorer;
 import org.exoplatform.portal.application.PortalRequestContext;

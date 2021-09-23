@@ -21,10 +21,10 @@ package org.exoplatform.services.cms.clouddrives.webui;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;

@@ -16,16 +16,15 @@
  */
 package org.exoplatform.services.ecm.dms.test;
 
+import junit.framework.TestCase;
 import org.exoplatform.services.cms.link.LinkUtils;
-import org.exoplatform.test.BasicTestCase;
-
 /**
  * Created by The eXo Platform SAS
  * Author : eXoPlatform
  *          nicolas.filotto@exoplatform.com
  * 6 avr. 2009
  */
-public class LinkUtilsTest extends BasicTestCase {
+public class LinkUtilsTest extends TestCase {
 
 
   public void testEvaluatePath() {

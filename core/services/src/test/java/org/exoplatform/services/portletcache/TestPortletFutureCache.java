@@ -25,13 +25,13 @@ import javax.portlet.WindowState;
 
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
-import org.exoplatform.test.BasicTestCase;
+import org.exoplatform.services.wcm.BaseWCMTestCase;
 
 /**
  * Created by The eXo Platform SAS Author : eXoPlatform
  * henri.gomez@exoplatform.com Jan 19, 2011
  */
-public class TestPortletFutureCache extends BasicTestCase {
+public class TestPortletFutureCache extends BaseWCMTestCase {
 
   private static final Log LOG = ExoLogger.getLogger(TestPortletFutureCache.class.getName());
 

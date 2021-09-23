@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.portlet.PortletRequest;
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.exoplatform.ecm.jcr.model.Preference;
 import org.exoplatform.ecm.webui.component.explorer.UIJCRExplorer;

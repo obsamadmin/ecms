@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import javax.jcr.ItemNotFoundException;
 import javax.jcr.Node;
 import javax.jcr.Session;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.*;

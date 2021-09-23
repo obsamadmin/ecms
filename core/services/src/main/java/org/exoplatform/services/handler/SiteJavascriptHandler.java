@@ -19,7 +19,7 @@ package org.exoplatform.services.handler;
 import java.io.PrintWriter;
 
 import javax.jcr.Node;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.exoplatform.ecm.utils.MessageDigester;
 import org.exoplatform.services.cache.CacheService;

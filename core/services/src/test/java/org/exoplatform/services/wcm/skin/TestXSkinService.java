@@ -30,7 +30,7 @@ import java.util.Map;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.exoplatform.commons.xml.DocumentSource;
 import org.exoplatform.component.test.web.ServletContextImpl;

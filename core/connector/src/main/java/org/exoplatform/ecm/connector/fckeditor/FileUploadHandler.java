@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.jcr.Node;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

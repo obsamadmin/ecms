@@ -18,10 +18,10 @@ package org.exoplatform.services.filters.sessionProvider;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 
 import org.exoplatform.services.jcr.sessions.ACLSessionProviderService;
 import org.exoplatform.services.wcm.utils.WCMCoreUtils;
@@ -50,7 +50,7 @@ public class ThreadLocalACLSessionProviderInitializedFilter implements Filter {
 
   /*
    * (non-Javadoc)
-   * @see javax.servlet.Filter#destroy()
+   * @see jakarta.servlet.Filter#destroy()
    */
   public void destroy() {
   }

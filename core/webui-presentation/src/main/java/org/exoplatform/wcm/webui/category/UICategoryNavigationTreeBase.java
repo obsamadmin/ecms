@@ -24,7 +24,7 @@ import java.util.List;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.portlet.PortletPreferences;
-import javax.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 
 import org.apache.commons.lang.StringUtils;
 import org.exoplatform.ecm.resolver.JCRResourceResolver;
