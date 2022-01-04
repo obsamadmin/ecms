@@ -152,18 +152,24 @@ public class UIDocumentAutoVersionForm extends UIForm implements UIPopupComponen
             PasteManageComponent.pasteByCut(autoVersionComponent.getCurrentClipboard(), uiExplorer, destSession, autoVersionComponent.getCurrentClipboard().getWorkspace(),
                     sourceNode.getPath(), destPath, WCMCoreUtils.getService(ActionServiceContainer.class), false,false, false);
           }else {
+            // nt:folder Does not support SNS
             int fileIndex = 0;
             String copyTitle = null;
-            Node existNode = uiExplorer.getNodeByPath(destPath, srcSession);
-            fileIndex = 1;
-            String newDestPath = "";
-            int lastDotIndex = destPath.lastIndexOf('.');
-            while (existNode != null) {
-              newDestPath = destPath.substring(0, lastDotIndex) + "-" + (fileIndex + 1 ) + destPath.substring(lastDotIndex);
-              existNode = uiExplorer.getNodeByPath(newDestPath, srcSession);
-              fileIndex ++;
+            if (isFolder) {
+              Node existNode = uiExplorer.getNodeByPath(destPath, srcSession);
+              fileIndex = 1;
+              String newDestPath = "";
+              int lastDotIndex = destPath.lastIndexOf('.');
+              while (existNode != null) {
+                newDestPath = destPath.substring(0, lastDotIndex) + "-" + (fileIndex + 1) + destPath.substring(lastDotIndex);
+                existNode = uiExplorer.getNodeByPath(newDestPath, srcSession);
+                fileIndex++;
             }
+            destPath = newDestPath;
+            copyTitle = destPath.substring(destPath.lastIndexOf("/") + 1, lastDotIndex) + "(" + (fileIndex + 1) + ")"
+                + destPath.substring(lastDotIndex);
 
+          }
             copyNode(destSession, autoVersionComponent.getSourceWorkspace(),
                     autoVersionComponent.getSourcePath(), destPath, uiApp, uiExplorer, event, ClipboardCommand.COPY, copyTitle);
           }
@@ -529,8 +535,30 @@ public class UIDocumentAutoVersionForm extends UIForm implements UIPopupComponen
     if (workspace.getName().equals(srcWorkspaceName)) {
       try {
         workspace.copy(srcPath, destPath);
-        Node destNode = (Node) session.getItem(destPath);
 
+        // the destNode can be copied in a folder where another file with same name
+        // exists
+        // for example, we copy the file abc.docx in folder /folder1/folder2
+        // where there is already file named abc.docx
+        // after the copy, if we do
+        // Node destNode = (Node) session.getItem(destPath);
+        // we get the initial existing node, not the copied one
+
+        // so we need to check in the parent folder of the destination path, if there is
+        // more than one node name abc.docx
+        // if yes, the one we just copy is the one with the max index
+
+        Node parentDestNode = session.getItem(destPath).getParent();
+        String destName = session.getItem(destPath).getName();
+        NodeIterator destNodeIterator = parentDestNode.getNodes(destName);
+        Node destNode = null;
+        if (destNodeIterator.getSize() > 1) {
+          LOG.warn("More than one !!");
+        }
+        while (destNodeIterator.hasNext()) {
+          destNode = destNodeIterator.nextNode();
+        }
+        LOG.warn("DestNode path={},uuid={}", destNode.getPath(), destNode.getUUID());
         if(destNode.isNodeType(ActivityTypeUtils.EXO_ACTIVITY_INFO)) {
           destNode.removeMixin(ActivityTypeUtils.EXO_ACTIVITY_INFO);
         }
