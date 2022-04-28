@@ -217,8 +217,8 @@ export default {
     this.$root.$on('remove-destination-for-file', (folderId) => {
       this.deleteDestinationPathForFile(folderId);
     });
-    this.$root.$on('select-destination-path-for-all', (pathDestinationFolder, folderName, currentDrive) => {
-      this.addDestinationFolderForAll(pathDestinationFolder, folderName, currentDrive);
+    this.$root.$on('select-destination-path-for-all', (pathDestinationFolder, folderName, currentDrive, relativePath) => {
+      this.addDestinationFolderForAll(pathDestinationFolder, folderName, currentDrive, relativePath);
     });
     this.$root.$on('link-new-added-attachments', () => {
       this.uploadAddedAttachments();
@@ -331,11 +331,11 @@ export default {
         });
       }
     },
-    addDestinationFolderForAll(pathDestinationFolder, folder, currentDrive) {
+    addDestinationFolderForAll(pathDestinationFolder, folder, currentDrive ,relativePath) {
       this.currentDrive = currentDrive;
       this.pathDestinationFolder = pathDestinationFolder;
       this.schemaFolder = folder.split('/');
-      this.$root.$emit('add-destination-path-for-all', this.defaultDestinationFolderPath, this.pathDestinationFolder, this.currentDrive);
+      this.$root.$emit('add-destination-path-for-all', this.defaultDestinationFolderPath, this.pathDestinationFolder, this.currentDrive, relativePath);
     },
     moveFileToNewDestinationFile(movedFile, pathDestinationFolder, folder, newDestinationPathDrive) {
       this.$attachmentService.moveAttachmentToNewPath(
@@ -352,7 +352,7 @@ export default {
         movedAttachment.pathDestinationFolderForFile = folder;
         movedAttachment.fileDrive = newDestinationPathDrive;
         this.newUploadedFiles.splice(movedAttachmentIndex, 1, movedAttachment);
-
+        
         const movedFileIndex = this.uploadedFiles.findIndex(file => file.id === movedFile.id);
         updatedMovedFile.drive = folder;
         updatedMovedFile.date = updatedMovedFile.created;

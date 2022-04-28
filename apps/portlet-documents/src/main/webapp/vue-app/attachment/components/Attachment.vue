@@ -56,8 +56,8 @@ export default {
     this.$root.$on('attachments-changed-from-drives', (selectedFromDrives, removedFilesFromDrive) => {
       this.updateAttachmentsFromDrives(selectedFromDrives, removedFilesFromDrive);
     });
-    this.$root.$on('add-destination-path-for-all', (defaultDestinationFolderPath, pathDestinationFolder, currentDrive) => {
-      this.addDestinationFolderForAll(defaultDestinationFolderPath, pathDestinationFolder, currentDrive);
+    this.$root.$on('add-destination-path-for-all', (defaultDestinationFolderPath, pathDestinationFolder, currentDrive, relativePath) => {
+      this.addDestinationFolderForAll(defaultDestinationFolderPath, pathDestinationFolder, currentDrive, relativePath);
     });
     this.$root.$on('reset-attachment-list', () => {
       this.attachments = [];
@@ -179,11 +179,13 @@ export default {
         this.attachments.splice(fileIndex, fileIndex >= 0 ? 1 : 0);
       }
     },
-    addDestinationFolderForAll(defaultDestinationFolderPath, pathDestinationFolder, currentDrive) {
-      for (const attachment in this.attachments) {
-        if (!attachment.destinationFolder || attachment.destinationFolder === defaultDestinationFolderPath) {
-          attachment.destinationFolder = pathDestinationFolder;
-          attachment.fileDrive = currentDrive;
+    addDestinationFolderForAll(defaultDestinationFolderPath, pathDestinationFolder, currentDrive,relativePath) {
+      for (const key in this.attachments) {
+        if (!this.attachments[key].destinationFolder || this.attachments[key].destinationFolder === defaultDestinationFolderPath) {
+          this.attachments[key].destinationFolder = pathDestinationFolder;
+          this.attachments[key].fileDrive = currentDrive;
+          const list = pathDestinationFolder.split('/');
+          this.$root.$emit('add-destination-path-for-file', this.attachments[key],relativePath, list[list.length - 1], currentDrive);
         }
       }
     },

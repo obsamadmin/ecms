@@ -832,7 +832,7 @@ export default {
           this.$root.$emit('add-destination-path-for-file', this.movedFile, this.getRelativePath(this.selectedFolderPath), this.folderDestinationForFile, this.currentDrive);
           this.modeFolderSelectionForFile = false;
         } else {
-          this.$root.$emit('select-destination-path-for-all', this.selectedFolderPath, this.schemaFolder, this.currentDrive);
+          this.$root.$emit('select-destination-path-for-all', this.selectedFolderPath, this.schemaFolder, this.currentDrive, this.getRelativePath(this.selectedFolderPath));
         }
       } else {
         this.addSelectedFiles();
