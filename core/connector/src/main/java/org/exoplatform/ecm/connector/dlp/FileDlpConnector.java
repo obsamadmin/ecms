@@ -193,7 +193,7 @@ public class FileDlpConnector extends DlpServiceConnector {
     if (dlpKeywords != null && !dlpKeywords.isEmpty()) {
       try {
         searchContext = new SearchContext(new Router(new ControllerDescriptor()), "");
-        Collection<SearchResult> searchResults = fileSearchServiceConnector.dlpSearch(searchContext, dlpKeywords, entityId);
+        Collection<SearchResult> searchResults = fileSearchServiceConnector.searchByEntityId(searchContext, dlpKeywords, entityId);
         if (!getDetectedKeywords(searchResults, dlpOperationProcessor.getKeywords()).isEmpty()) {
           treatItem(entityId, searchResults);
         } else {

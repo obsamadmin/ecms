@@ -96,7 +96,7 @@ public class TestFileDlpConnector {
     excerpts.put("test", strings);
     searchResult.setExcerpts(excerpts);
     results.add(searchResult);
-    when(fileSearchServiceConnector.dlpSearch(Mockito.any(),Mockito.eq("keyword1,keyword2"),Mockito.eq(uuid))).thenReturn(results);
+    when(fileSearchServiceConnector.searchByEntityId(Mockito.any(),Mockito.eq("keyword1,keyword2"),Mockito.eq(uuid))).thenReturn(results);
     fileDlpConnector = new FileDlpConnector(initParams, fileSearchServiceConnector, repositoryService, indexingService,
                                             dlpOperationProcessor, restoredDlpItemService, linkManager, trashService);
     FileDlpConnector fileDlpConnectorSpy = Mockito.spy(fileDlpConnector);

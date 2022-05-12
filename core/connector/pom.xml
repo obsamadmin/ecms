@@ -146,8 +146,8 @@
       <artifactId>commons-component-common</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.exoplatform.commons</groupId>
-      <artifactId>commons-dlp</artifactId>
+      <groupId>org.exoplatform.addons.dlp</groupId>
+      <artifactId>dlp-services</artifactId>
     </dependency>
     <!-- "unused declared" by analyze but still use for test -->
     <dependency>
